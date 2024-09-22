@@ -1,0 +1,34 @@
+import random
+resist = 5
+eaten = 0
+win = False
+foods = ["orange", "bread", "hotdog", "pizza", "mayonaise", "lasanga", \
+         "cheese","milk", "boba", "cardboard box", "tungsten cube", "meat", \
+         'gum', 'hair dryer', 'block of wood', "turd", "nuclear bomb", "WHOLE FREAKING BEAVER", \
+         "bintendo swips", "Nuka cola", "The BFG (Big **** Gun)"]
+adj = ["smelly", "old", "fuzzy","half-eaten", "a flying", "delicious", "flaming", \
+       "sublimating", "fresh", "aincent", "disgusting", "collosal", "lumpy", \ 
+       "radioactive", "flaming"]
+while True:
+    food = random.randint(0, len(foods) - 1)
+    adjective = random.randint(0, len(adj) - 1)
+    bob = random.randrange(1,15)
+    print("you found: " + adj[adjective] + " " + foods[food] + " in the fridge")
+    print("would you like to eat it or not to eat it")
+    print("use y or n", end = "")
+    boba = input()
+    if boba == "y":
+        print("you eat")
+        if (bob > resist) and (adj[adjective] != "delicious") and (adj[adjective] != "fresh") or adj[adjective] == "half eaten":
+            print("you die of food poisoning")
+            break
+        else:
+            print("you live👏👏")
+            resist += 1
+        if resist == 20:
+            win = True
+            break
+if win == False:
+    print("you lose :(")
+else:
+    print("You have survived multiple food poisionings! ")
