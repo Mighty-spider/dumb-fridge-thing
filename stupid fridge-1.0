@@ -1,36 +1,95 @@
-# or you could run the code on a python compiler on your device.
-
-import random
+from random import randint
 resist = 5
 eaten = 0
-win = False
+chance = 1
+win = True
 foods = ["orange", "bread", "hotdog", "pizza", "mayonaise", "lasanga", \
          "cheese","milk", "boba", "cardboard box", "tungsten cube", "meat", \
          'gum', 'hair dryer', 'block of wood', "turd", "nuclear bomb", "WHOLE FREAKING BEAVER", \
-         "bintendo swips", "Nuka cola", "The BFG (Big **** Gun)"]
+         "laptop", "Nuka cola", "BFG (Big **** Gun)"]
 adj = ["smelly", "old", "fuzzy","half-eaten", "a flying", "delicious", "flaming", \
-       "sublimating", "fresh", "aincent", "disgusting", "collosal", "lumpy", \ 
+       "sublimating", "fresh", "aincent", "disgusting", "collosal", "lumpy", \
        "radioactive", "flaming"]
+dangadj = ["smelly", "old", "fuzzy","half-eaten", "a flying", "flaming", \
+       "sublimating", "aincent", "disgusting", "collosal", "lumpy", \
+       "radioactive", "flaming"]
+
+def check(danger, resist, adj, noun):
+    print("you eat")
+    if (danger > resist) and (adj != "delicious") and (adj != "fresh") or adj == "radioactive":
+        print("you die of food poisoning")
+        return False
+    else:
+        print("you live👏👏")
+    return resist
+
+
 while True:
-    food = random.randint(0, len(foods) - 1)
-    adjective = random.randint(0, len(adj) - 1)
-    bob = random.randrange(1,15)
-    print("you found: " + adj[adjective] + " " + foods[food] + " in the fridge")
-    print("would you like to eat it or not to eat it")
-    print("use y or n", end = "")
-    boba = input()
-    if boba == "y":
-        print("you eat")
-        if (bob > resist) and (adj[adjective] != "delicious") and (adj[adjective] != "fresh") or adj[adjective] == "half eaten":
-            print("you die of food poisoning")
-            break
+    food = randint(0, len(foods) - 1)
+    adjective = randint(0, len(adj) - 1)
+    danger = randint(1, 20)
+    eventchance = randint(chance, 25)
+    if eventchance == 21:
+        food = randint(0, len(foods) - 1)
+        adjective = randint(0, len(dangadj) - 1)
+        danger = randint(1, 20)
+        
+        food2 = randint(0, len(foods) - 1)
+        adjective2 = randint(0, len(dangadj) - 1)
+        danger2 = randint(1, 20)
+        
+        print("You are forced to eat the next thing by a squirrel with a...IS THAT A GLOCK?")
+        print("You have two choices:")
+        print("1. " + dangadj[adjective] + " " + foods[food])
+        print("2. " + dangadj[adjective2] + " " + foods[food2])
+        which = input("1 or 2?")
+        if which == "1":
+            # correct input
+            value = check(danger, resist, dangadj[adjective], foods[food])
+        elif which == "2":
+            # correct input
+            value = check(danger2, resist, dangadj[adjective2], foods[food2])
         else:
-            print("you live👏👏")
-            resist += 1
-        if resist == 20:
-            win = True
+            # incorrect input
+            print("The squirrel shoots you. you now have a bad case of lead poisoning.")
+            win = False
             break
+        
+        if value != False:
+            resist = value
+            if resist == 20:
+                break
+        else:
+            win = False
+            break
+        if (adj[adjective] != "delicious") and (adj[adjective] != "fresh"):
+            chance == 5
+                
+    #elif eventchance == 12:
+        # EVENT
+    #    continue
+    else: 
+        print("you found: " + adj[adjective] + " " + foods[food] + " in the fridge")
+        print("would you like to eat it or not to eat it")
+        print("use e to eat, otherwise press enter.", end = "")
+        boba = input()
+        if boba == "e":
+            value = check(danger, resist, adj[adjective], foods[food])
+            if value != False:
+                resist = value
+                if resist == 20:
+                    break
+            else:
+                win = False
+                break
+            if (adj[adjective] != "delicious") and (adj[adjective] != "fresh"):
+                chance = 2
+        else:
+            if chance != 20:
+                chance += 1
+        print()
+        
 if win == False:
     print("you lose :(")
 else:
-    print("You have survived multiple food poisionings! ")
+    print("You have survived multiple food poisionings! :D [you won. good job.]")
